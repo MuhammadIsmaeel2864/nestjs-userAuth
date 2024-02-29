@@ -57,6 +57,9 @@ export class UserService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
+    if(updateUserDto.password){
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password,10);
+    }
 
     try {
       return await this.prisma.user.update({
