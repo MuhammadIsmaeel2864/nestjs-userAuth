@@ -25,6 +25,8 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @Get('email')
   async findOne(@Query('email') email: string, password: string) {
     try {
@@ -39,18 +41,23 @@ export class UserController {
     }
   }
 
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @Get(':id')
   async findbyId(@Param('id', ParseIntPipe) id: string) {
     return this.userService.findbyId(+id);
   }
 
 
-
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: string) {
     return this.userService.remove(+id);
