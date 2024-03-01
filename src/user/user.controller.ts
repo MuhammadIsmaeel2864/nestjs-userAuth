@@ -11,8 +11,8 @@ import { ParseIntPipe } from '@nestjs/common';
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
-  // @ApiBearerAuth()
-  // @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
