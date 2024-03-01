@@ -16,4 +16,7 @@ export class CreateUserDto {
     
     @ApiProperty({ required: true })    
     password:string
+
+    @ApiProperty()
+    roleId:number;
 }
