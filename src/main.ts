@@ -7,10 +7,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder().addBearerAuth()
-    .setTitle('CabScan')
-    .setDescription('The cats API description')
+    .setTitle('UserAuth')
+    .setDescription('User Authentication')
     .setVersion('1.0')
-    .addTag('Cabscan')
+    .addTag('UserAuth')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

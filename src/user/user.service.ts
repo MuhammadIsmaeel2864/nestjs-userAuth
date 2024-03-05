@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaClient, Prisma } from '@prisma/client';
+import { PrismaClient, Prisma, Role } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
+
 
 
 
@@ -24,7 +25,7 @@ export class UserService {
           name: createUserDto.name,
           email: createUserDto.email,
           password: hashedPassword,
-          
+          role: createUserDto.role
         }
       });
 
@@ -58,8 +59,8 @@ export class UserService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    if(updateUserDto.password){
-      updateUserDto.password = await bcrypt.hash(updateUserDto.password,10);
+    if (updateUserDto.password) {
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
     }
 
     try {

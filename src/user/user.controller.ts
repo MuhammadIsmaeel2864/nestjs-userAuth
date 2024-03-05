@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Request, UnauthorizedException, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request, UnauthorizedException, Query, UseGuards, Logger } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -9,10 +9,11 @@ import { ParseIntPipe } from '@nestjs/common';
 @ApiTags('Users') // Specify tag for Swagger
 @Controller('user')
 export class UserController {
+  private readonly logger = new Logger(UserController.name)
   constructor(private readonly userService: UserService) { }
 
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard)
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard)
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
@@ -45,6 +46,7 @@ export class UserController {
   @UseGuards(AuthGuard)
   @Get(':id')
   async findbyId(@Param('id', ParseIntPipe) id: string) {
+    this.logger.debug(`Getting User By Id Initiated`)
     return this.userService.findbyId(+id);
   }
 
