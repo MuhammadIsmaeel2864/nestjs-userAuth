@@ -5,6 +5,7 @@ import { UserModule } from 'src/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PrismaClient } from '@prisma/client';
 import { jwtConstants } from './constants';
+import { RolesGuard } from './role.guard';
 
 @Module({
   imports:[
@@ -15,7 +16,7 @@ import { jwtConstants } from './constants';
     }),
     UserModule],
   controllers: [AuthController],
-  providers: [AuthService,PrismaClient],
+  providers: [AuthService,PrismaClient,RolesGuard],
   exports:[AuthService]
 })
 export class AuthModule {}
