@@ -23,15 +23,15 @@ export class UserController {
   }
 
   @Roles(Role.ADMIN)
-  @UseGuards(JwtAuthGuard,RolesGuard)
-  @ApiBearerAuth()  
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth()
   @Get()
   findAll() {
     return this.userService.findAll();
   }
 
-  @Roles(Role.USER)
-  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles(Role.USER,Role.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiBearerAuth()
   @Get('email')
   async findOne(@Query('email') email: string, password: string) {
@@ -47,24 +47,26 @@ export class UserController {
     }
   }
 
+  @Roles(Role.ADMIN)
+  @UseGuards(JwtAuthGuard,RolesGuard)
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findbyId(@Param('id', ParseIntPipe) id: string) {
     this.logger.debug(`Getting User By Id Initiated`)
     return this.userService.findbyId(+id);
   }
 
-
+  @Roles(Role.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
 
+  @Roles(Role.ADMIN)
+  @UseGuards(JwtAuthGuard,RolesGuard)
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: string) {
     return this.userService.remove(+id);
