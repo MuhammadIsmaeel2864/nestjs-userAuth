@@ -30,7 +30,7 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Roles(Role.USER,Role.ADMIN)
+  @Roles(Role.USER, Role.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiBearerAuth()
   @Get('email')
@@ -48,7 +48,7 @@ export class UserController {
   }
 
   @Roles(Role.ADMIN)
-  @UseGuards(JwtAuthGuard,RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiBearerAuth()
   @Get(':id')
   async findbyId(@Param('id', ParseIntPipe) id: string) {
@@ -65,7 +65,7 @@ export class UserController {
   }
 
   @Roles(Role.ADMIN)
-  @UseGuards(JwtAuthGuard,RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiBearerAuth()
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: string) {
